@@ -1,13 +1,12 @@
 package kr.ac.ks.board;
 
 import java.sql.Timestamp;
+import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import kr.ac.ks.boardreplay.WebBoardReply;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -38,6 +37,10 @@ public class WebBoard {
 
     @UpdateTimestamp
     private Timestamp updatedate;
+
+    @JsonIgnore
+    @OneToMany(mappedBy="board", fetch=FetchType.LAZY)
+    private List<WebBoardReply> replie;
 
     public Long getBno() {
         return bno;
@@ -85,6 +88,14 @@ public class WebBoard {
 
     public void setUpdatedate(Timestamp updatedate) {
         this.updatedate = updatedate;
+    }
+
+    public List<WebBoardReply> getReplie() {
+        return replie;
+    }
+
+    public void setReplie(List<WebBoardReply> replie) {
+        this.replie = replie;
     }
 
     @Override
