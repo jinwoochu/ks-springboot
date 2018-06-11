@@ -1,5 +1,6 @@
 package kr.ac.ks.boardreplay;
 
+
 import kr.ac.ks.board.WebBoard;
 import org.springframework.data.repository.CrudRepository;
 
