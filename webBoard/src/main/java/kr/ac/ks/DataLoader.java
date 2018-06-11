@@ -2,6 +2,8 @@ package kr.ac.ks;
 
 import java.util.stream.IntStream;
 
+import kr.ac.ks.boardreplay.WebBoardReply;
+import kr.ac.ks.boardreplay.WebBoardReplyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -13,16 +15,16 @@ import kr.ac.ks.board.WebBoardRepository;
 @Component
 public class DataLoader implements ApplicationRunner {
 
-    private WebBoardRepository repo;
+    @Autowired
+    private WebBoardRepository boardRepository;
 
     @Autowired
-    public DataLoader(WebBoardRepository repo) {
-        this.repo = repo;
-    }
+    private WebBoardReplyRepository webBoardReplyRepository;
 
     @Override
     public void run(ApplicationArguments args) {
-    	IntStream.range(0, 100).forEach(i -> repo.save(new WebBoard("title"+i, "content"+i, "user"+(i%10))));
+    	IntStream.range(1, 100).forEach(i -> boardRepository.save(new WebBoard("title"+i, "content"+i, "user"+(i%10))));
+        IntStream.range(1, 100).forEach(i -> webBoardReplyRepository.save(new WebBoardReply("replyText"+i, "replyer"+i, boardRepository.findById((long)i).orElse(null))));
     }
 
 }
