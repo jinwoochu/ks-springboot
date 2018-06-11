@@ -25,6 +25,7 @@ public class WebBoardReplyController {
         WebBoard board = new WebBoard();
         board.setBno(bno);
         return new ResponseEntity<>(getListByBoard(board), HttpStatus.OK);
+    }
 
     @Transactional
     @PostMapping("/{bno}")
